@@ -40,3 +40,22 @@ body {
   padding: 5px;
   font-weight: bold;
 }
+
+/* Home */
+.users-header {
+  margin-top: 10px;
+  margin-left: 100px;
+  font-weight: bold;
+}
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  margin-left: 200px;
+}
+
+.user-container {
+  padding: 15px;
+}

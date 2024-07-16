@@ -7,9 +7,10 @@ const homeApi = userApi.injectEndpoints({
       query: () => ({
         url: "/api/user/users",
         method: "GET",
-        // headers: {
-        //   Authorization: `Bearer ${localStorage.getItem("Token")}`,
-        // },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("Token")}`,
+        },
         responseHandler: (response) => response.text(),
       }),
       providesTags: ["Users"],

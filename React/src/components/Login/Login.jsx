@@ -26,7 +26,6 @@ export default function Login({ setLoggedIn }) {
       success = await loginUser(form).unwrap();
       console.log("Success response:", success);
       if (success) {
-        window.sessionStorage.setItem("Token", success.token);
         setLoggedIn(true);
         navigate("/");
       }

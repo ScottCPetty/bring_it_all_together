@@ -1,5 +1,24 @@
-import React from "react";
+import { useGetAllUsersQuery } from "./HomeSlice";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  return <div>Home</div>;
+  const [allUsers, getAllUsers] = useState([]);
+  const { data, isSuccess } = useGetAllUsersQuery();
+  useEffect(() => {
+    if (isSuccess && data) {
+      const temp = JSON.parse(data)
+      getAllUsers(temp.allUsers)
+    }
+  }, [data, isSuccess])
+  return (
+    <>
+      <ul>
+        {allUsers.map((user) => {
+          return (
+            <li key={user.id}>Email: {user.email}</li>
+          )
+        })}
+      </ul>
+    </>
+  )
 }

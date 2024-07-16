@@ -1,6 +1,6 @@
 import { useGetAllUsersQuery } from "./HomeSlice";
 import { useEffect, useState } from "react";
-import UserActions from "./UserActions";
+// import UserActions from "./UserActions";
 
 export default function Home(loggedIn) {
   const [allUsers, setAllUsers] = useState([]);
@@ -10,7 +10,7 @@ export default function Home(loggedIn) {
     if (isSuccess && data) {
       const temp = JSON.parse(data);
       console.log(temp);
-      getAllUsers(temp);
+      setAllUsers(temp);
     }
   }, [data, isSuccess]);
 

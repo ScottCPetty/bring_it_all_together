@@ -9,21 +9,32 @@ export default function Home(loggedIn) {
   useEffect(() => {
     if (isSuccess && data) {
       const temp = JSON.parse(data);
-      setAllUsers(temp.allUsers);
+      console.log(temp);
+      getAllUsers(temp);
     }
   }, [data, isSuccess]);
 
   return (
-    <>
-      <h1>User List</h1>
-      <ul>
-        {allUsers.map((user) => (
-          <li key={user.id}>
-            Email: {user.email}
-            <UserActions user={user} />
-          </li>
-        ))}
-      </ul>
-    </>
+    <div>
+      <h2 className="users-header">Users:</h2>
+      <div className="users-list">
+        {loggedIn &&
+          isSuccess &&
+          allUsers.map((user) => (
+            <div key={user.id} className="user-container">
+              <h5>{`Email: ${user.email}`}</h5>
+              <h5>{`Name: ${user.firstName} ${user.lastName}`}</h5>
+              <div className="buttons-container">
+                <button type="button" className="btn btn-primary">
+                  User Info
+                </button>
+                <button type="button" className="btn btn-danger">
+                  Delete User
+                </button>
+              </div>
+            </div>
+          ))}
+      </div>
+    </div>
   );
 }

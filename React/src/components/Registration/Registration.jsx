@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useRegisterMutation } from "./RegisterSlice";
+import { useRegisterMutation } from "./RegistrationSlice";
 
-export default function Register(setLoggedIn) {
-  // const [registerUser] = useRegisterMutation();
+export default function Register({ setLoggedIn }) {
+  const [registerUser] = useRegisterMutation();
 
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
@@ -20,21 +20,21 @@ export default function Register(setLoggedIn) {
     }));
   };
 
-  // const submit = async (e) => {
-  //   e.preventDefault();
-  //   console.log("This is the form:", form);
-  //   try {
-  //     let success = false;
-  //     success = await registerUser(form).unwrap();
-  //     if (success) {
-  //       window.sessionStorage.setItem("Token", success.token);
-  //       setLoggedIn(true);
-  //       navigate("/");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const submit = async (e) => {
+    e.preventDefault();
+    console.log("This is the form:", form);
+    try {
+      let success = false;
+      success = await registerUser(form).unwrap();
+      if (success) {
+        window.sessionStorage.setItem("Token", success.token);
+        setLoggedIn(true);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const toLoginRedirect = () => {
     navigate("/login");
@@ -43,16 +43,15 @@ export default function Register(setLoggedIn) {
   return (
     <div className="form-container">
       <h2 className="form-header">Register</h2>
-      {/* <form onSubmit={submit}> */}
-      <form>
+      <form onSubmit={submit}>
         <div className="form-group">
           <label>First Name</label>
           <input
             type="text"
             className="form-control"
             placeholder="First Name"
-            name="firstname"
-            // value={form.firstname}
+            name="firstName"
+            value={form.firstName}
             onChange={updateForm}
           />
         </div>
@@ -62,8 +61,8 @@ export default function Register(setLoggedIn) {
             type="text"
             className="form-control"
             placeholder="Last Name"
-            name="lastname"
-            // value={form.lastname}
+            name="lastName"
+            value={form.lastName}
             onChange={updateForm}
           />
         </div>
@@ -75,7 +74,7 @@ export default function Register(setLoggedIn) {
             aria-describedby="emailHelp"
             placeholder="Enter email"
             name="email"
-            // value={form.email}
+            value={form.email}
             onChange={updateForm}
           />
         </div>
@@ -86,7 +85,7 @@ export default function Register(setLoggedIn) {
             className="form-control"
             placeholder="Password"
             name="password"
-            // value={form.password}
+            value={form.password}
             onChange={updateForm}
           />
         </div>

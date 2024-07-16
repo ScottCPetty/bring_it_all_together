@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useLoginMutation } from "./LoginSlice";
+import { useLoginMutation } from "./LoginSlice";
 
 export default function Login({ setLoggedIn }) {
-  // const [loginUser] = useLoginMutation();
+  const [loginUser] = useLoginMutation();
 
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -18,21 +18,22 @@ export default function Login({ setLoggedIn }) {
     }));
   };
 
-  // const submit = async (e) => {
-  //   e.preventDefault();
-  //   console.log("This is the form:", form);
-  //   try {
-  //     let success = false;
-  //     success = await loginUser(form).unwrap();
-  //     if (success) {
-  //       window.sessionStorage.setItem("Token", success.token);
-  //       setLoggedIn(true);
-  //       navigate("/");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const submit = async (e) => {
+    e.preventDefault();
+    console.log("This is the form:", form);
+    try {
+      let success = false;
+      success = await loginUser(form).unwrap();
+      console.log("Success response:", success);
+      if (success) {
+        window.sessionStorage.setItem("Token", success.token);
+        setLoggedIn(true);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const toRegistrationRedirect = () => {
     navigate("/registration");
@@ -41,8 +42,7 @@ export default function Login({ setLoggedIn }) {
   return (
     <div className="form-container">
       <h2 className="form-header">Login</h2>
-      {/* <form onSubmit={submit}> */}
-      <form>
+      <form onSubmit={submit}>
         <div className="form-group">
           <label>Email address</label>
           <input
@@ -51,7 +51,7 @@ export default function Login({ setLoggedIn }) {
             aria-describedby="emailHelp"
             placeholder="Enter email"
             name="email"
-            // value={form.email}
+            value={form.email}
             onChange={updateForm}
           />
         </div>
@@ -62,7 +62,7 @@ export default function Login({ setLoggedIn }) {
             className="form-control"
             placeholder="Password"
             name="password"
-            // value={form.password}
+            value={form.password}
             onChange={updateForm}
           />
         </div>

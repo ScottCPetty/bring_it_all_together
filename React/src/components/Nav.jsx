@@ -6,6 +6,7 @@ export default function Nav({ loggedIn, setLoggedIn }) {
 
   const handleSignOut = () => {
     window.sessionStorage.removeItem("Token");
+    window.sessionStorage.removeItem("CurrentUser");
     setLoggedIn(false);
     navigate("/login");
   };

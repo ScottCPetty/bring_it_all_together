@@ -29,6 +29,7 @@ export default function Register({ setLoggedIn }) {
       if (success) {
         window.sessionStorage.setItem("Token", success.token);
         setLoggedIn(true);
+        sessionStorage.setItem("CurrentUser", form.email);
         navigate("/");
       }
     } catch (error) {

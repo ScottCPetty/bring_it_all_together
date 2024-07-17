@@ -1,10 +1,12 @@
-import { useGetAllUsersQuery } from "./HomeSlice";
+import { useGetAllUsersQuery, useDeleteUserMutation } from "./HomeSlice";
 import { useEffect, useState } from "react";
 // import UserActions from "./UserActions";
 
 export default function Home(loggedIn) {
   const [allUsers, setAllUsers] = useState([]);
-  const { data, isSuccess } = useGetAllUsersQuery();
+  const { data, isSuccess, refetch } = useGetAllUsersQuery();
+  const currentUser = window.sessionStorage.getItem("CurrentUser");
+  const [deleteUserMutation] = useDeleteUserMutation();
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -13,6 +15,16 @@ export default function Home(loggedIn) {
       setAllUsers(temp);
     }
   }, [data, isSuccess]);
+
+  const handleUserDelete = async (userId) => {
+    try {
+      await deleteUserMutation(userId);
+      refetch();
+      alert("User Deleted");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -28,9 +40,17 @@ export default function Home(loggedIn) {
                 <button type="button" className="btn btn-primary">
                   User Info
                 </button>
-                <button type="button" className="btn btn-danger">
-                  Delete User
-                </button>
+                {user.email === currentUser ? (
+                  <p>{`(Current User)`}</p>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => handleUserDelete(user.id)}
+                  >
+                    Delete User
+                  </button>
+                )}
               </div>
             </div>
           ))}

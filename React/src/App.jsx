@@ -9,6 +9,7 @@ import Nav from "./components/Nav";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Registration from "./components/Registration/Registration";
+import User from "./components/User/User";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(
@@ -34,6 +35,7 @@ function App() {
             path="/registration"
             element={<Registration setLoggedIn={setLoggedIn} />}
           />
+          <Route path="/:userId" element={<User loggedIn={loggedIn} />} />
         </Routes>
       </Router>
     </>

@@ -27,7 +27,6 @@ export default function Register({ setLoggedIn }) {
       let success = false;
       success = await registerUser(form).unwrap();
       if (success) {
-        window.sessionStorage.setItem("Token", success.token);
         setLoggedIn(true);
         sessionStorage.setItem("CurrentUser", form.email);
         navigate("/");

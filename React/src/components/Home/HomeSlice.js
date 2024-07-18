@@ -44,10 +44,4 @@ const homeSlice = createSlice({
 });
 
 export default homeSlice.reducer;
-// export const { useGetAllUsersQuery } = homeApi;
-
-export const {
-  useGetAllUsersQuery,
-  useDeleteUserMutation,
-  // useUpdateUserMutation,
-} = homeApi;
+export const { useGetAllUsersQuery, useDeleteUserMutation } = homeApi;

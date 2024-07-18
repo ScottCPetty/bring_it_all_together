@@ -1,20 +1,26 @@
 import { useGetAllUsersQuery, useDeleteUserMutation } from "./HomeSlice";
 import { useEffect, useState } from "react";
-// import UserActions from "./UserActions";
+import { useNavigate } from "react-router-dom";
 
 export default function Home(loggedIn) {
   const [allUsers, setAllUsers] = useState([]);
   const { data, isSuccess, refetch } = useGetAllUsersQuery();
   const currentUser = window.sessionStorage.getItem("CurrentUser");
   const [deleteUserMutation] = useDeleteUserMutation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isSuccess && data) {
       const temp = JSON.parse(data);
       console.log(temp);
       setAllUsers(temp);
+      refetch();
     }
-  }, [data, isSuccess]);
+  }, [data, isSuccess, refetch]);
+
+  const userInfoRedirect = (userId) => {
+    navigate(`/${userId}`);
+  };
 
   const handleUserDelete = async (userId) => {
     try {
@@ -37,7 +43,11 @@ export default function Home(loggedIn) {
               <h5>{`Email: ${user.email}`}</h5>
               <h5>{`Name: ${user.firstName} ${user.lastName}`}</h5>
               <div className="buttons-container">
-                <button type="button" className="btn btn-primary">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => userInfoRedirect(user.id)}
+                >
                   User Info
                 </button>
                 {user.email === currentUser ? (

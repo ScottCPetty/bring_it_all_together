@@ -16,7 +16,7 @@ const registerApi = userApi.injectEndpoints({
 });
 
 const storeToken = (state, { payload }) => {
-  window.sessionStorage.setItem("Token", payload.token);
+  window.sessionStorage.setItem("Token", payload);
 };
 
 const registerSlice = createSlice({

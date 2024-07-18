@@ -27,20 +27,6 @@ const homeApi = userApi.injectEndpoints({
       }),
       invalidatesTags: ["Users"],
     }),
-
-    //     updateUser: builder.mutation({
-    //       query: ({ id, ...rest }) => ({
-    //         url: `/api/user/update/${id}`,
-    //         method: "PUT",
-    //         body: rest,
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //           Authorization: `Bearer ${localStorage.getItem("Token")}`,
-    //         },
-    //       }),
-    //       invalidatesTags: ["Users"],
-    //     }),
-    //   }),
   }),
 });
 
